@@ -2,6 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tính Toán & Quản Lý Giá Cổ Phiếu</title>
   <style>
     body {
@@ -20,6 +21,7 @@
       padding: 15px;
       margin: 0 auto 20px;
       max-width: 600px;
+      width: 90%;
       border-radius: 8px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
@@ -63,6 +65,8 @@
       border-collapse: collapse;
       background: #fff;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      overflow-x: auto;
+      display: block;
     }
     table th, table td {
       padding: 10px;
@@ -91,6 +95,23 @@
     .btn-delete {
       background-color: #7f8c8d;
       color: #fff;
+    }
+    
+    /* Responsive adjustments cho màn hình nhỏ */
+    @media (max-width: 600px) {
+      body {
+        margin: 10px;
+      }
+      h1 {
+        font-size: 1.5em;
+      }
+      .form-container, .control-container, table {
+        width: 100%;
+        margin: 0 auto 15px;
+      }
+      table th, table td {
+        padding: 8px;
+      }
     }
   </style>
 </head>
@@ -160,7 +181,6 @@
         if (new Date().getTime() < obj.expiry) {
           const stocks = obj.data;
           for (let stock of stocks) {
-            // Sử dụng hàm addOrUpdateStockRow để tạo dòng
             addOrUpdateStockRow(stock.stockCode, stock.refPrice, stock.volatility);
           }
         } else {
