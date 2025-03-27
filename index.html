@@ -1,407 +1,305 @@
-<!--############################ -->
-<!DOCTYPE html> 
-<html lang= "en"> 
+<!DOCTYPE html>
+<html lang="vi">
 <head>
+  <meta charset="UTF-8">
+  <title>Tính Toán Giá Cổ Phiếu</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      margin: 20px;
+      background-color: #eef2f3;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+    .form-container, .control-container {
+      background: #fff;
+      padding: 15px;
+      margin: 0 auto 20px;
+      max-width: 600px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .form-container label, .control-container label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    .form-container input, .control-container input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .form-container button, .control-container button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-right: 5px;
+    }
+    .form-container button {
+      background-color: #27ae60;
+      color: #fff;
+    }
+    .form-container button:hover {
+      background-color: #219150;
+    }
+    .control-container button {
+      background-color: #2980b9;
+      color: #fff;
+    }
+    .control-container button:hover {
+      background-color: #1f6391;
+    }
+    table {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      border-collapse: collapse;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    table th, table td {
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+    table th {
+      background-color: #34495e;
+      color: #fff;
+    }
+    .action-btn {
+      padding: 5px 8px;
+      margin: 2px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .btn-increase {
+      background-color: #16a085;
+      color: #fff;
+    }
+    .btn-decrease {
+      background-color: #c0392b;
+      color: #fff;
+    }
+    .btn-delete {
+      background-color: #7f8c8d;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <h1>Tính Toán & Quản Lý Giá Cổ Phiếu</h1>
+  
+  <div class="form-container">
+    <label for="stockCode">Mã cổ phiếu:</label>
+    <input type="text" id="stockCode" placeholder="VD: FPT" />
 
-  <title>DONG BUI</title>
-	<meta name="description" content="My website"/> 
+    <label for="refPrice">Giá tham chiếu:</label>
+    <input type="number" id="refPrice" placeholder="Nhập giá tham chiếu" step="0.01" />
 
-	<meta name="author" content="DONG BUI"/> 
+    <label for="volatility">Biên độ dao động (%):</label>
+    <input type="number" id="volatility" placeholder="VD: 7" step="0.1" />
 
-	<meta name="country" content="Vietnam"/> 
-
-
-
-</head>  
-<body style="background-color:#658786;">
-
-
-  <hr>
-  <h1 style="background-color:#9382b5">This is 0</h1>
-  <p style="background-color:#5fb2d9;">This is 1.</p>
-
-
-
-  <hr>
-	<h1 style="font-size:60px;">My Dong 1</h1> 
-	<h2>My Dong 2</h2>
-  	<h3>My Dong 3</h3>
-  	<h4>My Dong 4</h4>
-  	<h5>My Dong 5</h5>
-  	<h6>My Dong 6</h6>
-
-
-<hr> 
-	<p><em style="background-color:#9382b5">I am working the information technology field.</em></p>
-	<p><em>I am working <br><b> the information technology field.</b></em></p>
-	
-
- <hr>
-	<ol>
-		<li>Hanoi</li>
-		<li>Haiduong</li>
-	</ol>
-
-
-  <hr>
-  <ol>     
-    <li>Phần 1
-        <ol type="i">
-            <li>Mục con 1</li>
-            <li>Mục con 2</li>
-        </ol>
-    </li>
-    <li>Phần 2</li>
-  </ol>
-
-
-
-  <hr>
-  <table border="2"> 
-  <!-- ## thêm viền vào bảng  -->
-    <tr>
-      <td>math</td>
-      <td>phy</td>  
-    </tr>
-  </table>
-
-
-  <hr>
-  <table border="2">
-    <tr> 
-      <th>math</th>
-      <th>phy</th>
-    </tr>
-      <td>7</td>
-      <td>4</td>
-    <tr>
-      <th colspan="2">math</th>
-  </table>
-
-
-  <hr>
-  <img src="1.png" alt="My Photo" width="300" height="100" />
-
-
-  <hr>
-  <nav>
-    <a href="#contact">Contact</a>
-<!-- 
-    ## dấu # hoạt động cùng với id để lướt nhanh tới mục chứa id (di chuyển nhanh đến một vị trí nào đó)
-
-    ## id là do mình tự tạo ra với code id -->
-  </nav>
-
-  <hr>
-  <h2 id="contact">Contact information</h2> 
-  <p><em>xin chao ban nghieng 1.</em></p>
-  <p><em>xin chao ban nghieng 2.</em></p> <br/>
-
-
-  <hr>
-  <a href="https://www.facebook.com/profile.php?id=100082069043686&locale=vi_VN/">Visit facebookfacebook of me</a>
-
-
-  <hr>
-  <div>
-    Dong - <a href="mailto:dbui70440@gmail.com">Hello dong mail</a>
+    <button id="saveBtn">Lưu</button>
   </div>
 
-
-
-  <hr>
-  <p style="color:#81b593;">This is a red paragraph.</p>
-
-
-  <hr>
-  <p title="I'm a tooltip">This is a paragraph 3.</p>
-
-
-  <hr>
-  <pre>
-    My Bonnie lies over the ocean.
-
-    My Bonnie lies over the sea.
-
-    My Bonnie lies over the ocean.
-
-    Oh, bring back my Bonnie to me.
-  </pre>
-
-
-  <hr>
-  <b>This text is bold</b>
-
-
-  <hr>
-  <strong>This text is important!</strong>
-
-
-  <hr>
-  <i>This text is italic</i>
-
-
-  <hr>
-  <em>This text is emphasized</em>
-
-
-
-  <hr>
-  <small>This is some smaller text.</small>
-
-
-
-  <hr>
-  <p>My favorite color is <del>blue</del> red.</p>
-
-
-
-  <hr>
-  <p>Do not forget to buy <mark>milk</mark> today.</p>
-
-
-  <hr>
-  <p>My favorite color is <del>blue</del> <ins>red</ins>.</p>
-
-
-  <hr>
-  <p>This is <sub>subscripted</sub> text 1.</p>
-
-
-  <hr>
-  <p>This is <sup>superscripted</sup> text 2.</p>
-
-
-  <hr>
-  <blockquote cite="http://www.worldwildlife.org/who/index.html">
-  For 60 years, WWF has worked to help people and nature thrive.
-  </blockquote>
-
-
-
-  <hr>
-  <p>WWF's goal is to: <q>Build a future where people live in harmony with nature.</q></p>
-
-
-  <hr>
-  <p>The <abbr title="World Health Organization">WHO</abbr> was founded in 1948.</p>
-
-
-  <hr>
-  <address>
-  Written by John Doe.<br>
-  Visit us at:<br>
-  Example.com<br>
-  Box 564, Disneyland<br>
-  USA
-  </address>
-
-
-  <hr>
-  <p><cite>The Scream</cite> by Edvard Munch. Painted in 1893.</p>
-
-
-  <hr>
-  <bdo dir="rtl">This text will be written from right to left</bdo>
-
-
-
-  <hr>
-  <h1 style="color:blue;">This is mama</h1>
-  <p style="color:red;">This is baba.</p>
-
-
-  <hr>
-  <h1 style="font-family:verdana;">This is 1</h1>
-  <p style="font-family:courier;">This is 2</p>
-
-
-  <hr>
-  <h1 style="font-size:300%;">This is a 3.</h1>
-  <p style="font-size:160%;">This is a 4.</p>
-
-
-  <hr>
-  <p style="text-align:center;">Chào Đông.</p>
-
-
-
-  <hr>
-  <h1 style="border:1px solid Tomato;";>Hello World</h1>
-
-
-
-
-
-  <hr>
-  <table>
-  <colgroup>
-    <col span="4" style="background-color: #D6EEEE">
-  </colgroup>
-  <tr>
-    <th>MON</th>
-    <th>TUE</th>
-    <th>WED</th>
-    <th>THU</th>
-  <tr/>
+  <div class="control-container">
+    <label for="searchInput">Tìm kiếm mã cổ phiếu:</label>
+    <input type="text" id="searchInput" placeholder="Nhập từ khóa tìm kiếm..." />
+    <button id="sortAlphaBtn">Sắp xếp theo mã (A-Z)</button>
+    <button id="sortRefPriceBtn">Sắp xếp theo giá tham chiếu (Tăng dần)</button>
+  </div>
+  
+  <table id="stocksTable">
+    <thead>
+      <tr>
+        <th>Mã cổ phiếu</th>
+        <th>Giá tham chiếu</th>
+        <th>Giá sàn</th>
+        <th>Giá trần</th>
+        <th>Hành động</th>
+        <th>Thời gian cập nhật</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Dòng dữ liệu sẽ được thêm vào đây -->
+    </tbody>
   </table>
 
-
-
-  <hr>
-  <dl>
-    <dt>Coffee 1</dt>
-    <dd>- black hot drink</dd>
-    <dt>Milk</dt>
-    <dd>- white cold drink</dd>
-  </dl>
-
-
-
-  <hr>
-  <ul style="list-style-type:none;">
-    <li>Milk 2</li>
-  </ul>
-
-
-  <hr>
-  <ul style="list-style-type:disc;">
-    <li>Tea 3</li>
-  </ul>
-
-
-  <hr>
-  <ul style="list-style-type:square;">
-    <li>Coffee 4</li>
-  </ul>
-
-
-
-  <hr>
-  <ul>
-    <li>Coffee 5</li>
-    <li>Tea
-      <ul>
-        <li>Black tea</li>
-        <li>Green tea</li>
-      </ul>
-    </li>
-    <li>Milk</li>
-  </ul>
-
-
-
-  <hr>
-  <ol type="1">
-    <li>Coffee</li>
-    <li>Tea</li>
-  </ol>
-
-
-  <hr>
-  <ol type="a">
-    <li>Coffee</li>
-    <li>Tea</li>
-  </ol>
-
-
-
-  <hr>
-  <ol type="I">
-    <li>Coffee</li>
-  </ol>
-
-
-  <hr>
-  <ol start="50">
-    <li>Coffee</li>
-    <li>Milk</li>
-  </ol>
-
-
-
-  <hr>
-  <span>Hello 1</span>
-
-
-
-  <hr>
-  <img src="workplace.jpg" alt="Workplace 0" usemap="#workmap">
-
-
-
-
-  <hr>
-  <img src="workplace.jpg" alt="Workplace 2" usemap="#workmap">
-
-
-
-
-  <hr>
-  <a href="https://www.w3schools.com/" target="_blank">Visit W3Schools 1!</a>
-
-
-  <hr>
-  <h2>Absolute URLs</h2>
-  <p><a href="https://www.google.com/">Google</a></p>
-
-
-
-  <hr>
-  <h2>Relative URLs</h2>
-  <p><a href="html_images.asp">HTML Images 1</a></p>
-  <p><a href="/css/default.asp">CSS Tutorial</a></p>
-
-
-
-  <hr>
-  <a href="default.asp">
-  <img src="smiley.gif" alt="HTML tutorial 3" style="width:42px;height:42px;">
-  </a>
-
-
-  <hr>
-  <button onclick="document.location='default.asp'">HTML Tutorial 4</button>
-
-
-  <hr>
-  <a href="/html/default.asp">HTML tutorial 5</a>
-
-
-  <hr>
-  <a href="default.asp">HTML tutorial</a>
-
-
-
-  <hr>
-  <p><a href="https://www.w3schools.com" target="iframe_a">W3Schools.com 7</a></p>
-
-
-  <hr>
-  <h1 style="background-color:rgb(129, 99, 71);">........</h1>
-
-
-  <hr>
-  <h1 style="background-color:#ff6347;">...</h1>
-
-
-  <hr>
-  <h1 style="background-color:rgba(255, 99, 71, 0.5);">...</h1>
-
-
-  <hr>
-  <h1 style="background-color:hsla(9, 100%, 64%, 0.5);">chao..</h1>
-
-
-
-  <hr>
-  <ul>
-  <li><a href="#news">News</a></li>
-  <li><a href="#contact">Contact</a></li>
-  </ul>
-
-
+  <script>
+    // Hàm lấy chuỗi ngày giờ đầy đủ (ngày/tháng/năm giờ:phút:giây)
+    function getCurrentDateTime() {
+      const now = new Date();
+      return now.toLocaleString("vi-VN", {
+        day: "2-digit", month: "2-digit", year: "numeric",
+        hour: "2-digit", minute: "2-digit", second: "2-digit"
+      });
+    }
+
+    // Công thức tính giá sàn và trần theo biên độ (%)
+    function calculatePriceLimits(refPrice, volatility) {
+      const factor = volatility / 100;
+      const floor = refPrice * (1 - factor);
+      const ceiling = refPrice * (1 + factor);
+      return { floor: floor.toFixed(2), ceiling: ceiling.toFixed(2) };
+    }
+
+    // Thêm hoặc cập nhật dòng mã cổ phiếu
+    function addOrUpdateStockRow(stockCode, refPrice, volatility) {
+      const tableBody = document.getElementById('stocksTable').tBodies[0];
+      const rows = tableBody.rows;
+      let existingRow = null;
+
+      // Kiểm tra nếu mã cổ phiếu đã tồn tại (không phân biệt chữ hoa/thường)
+      for (let i = 0; i < rows.length; i++) {
+        const cellStockCode = rows[i].cells[0].textContent.trim();
+        if (cellStockCode.toLowerCase() === stockCode.toLowerCase()) {
+          existingRow = rows[i];
+          break;
+        }
+      }
+
+      // Tính giá sàn và trần dựa vào giá tham chiếu và biên độ
+      const { floor, ceiling } = calculatePriceLimits(refPrice, volatility);
+
+      if (existingRow) {
+        // Cập nhật dòng hiện có
+        existingRow.dataset.volatility = volatility;
+        existingRow.cells[1].textContent = refPrice.toFixed(2);
+        existingRow.cells[2].textContent = floor;
+        existingRow.cells[3].textContent = ceiling;
+        existingRow.cells[5].textContent = getCurrentDateTime();
+        return;
+      }
+
+      // Nếu không tồn tại, tạo dòng mới
+      const newRow = tableBody.insertRow();
+      newRow.dataset.volatility = volatility;
+
+      // Ô mã cổ phiếu
+      const cellCode = newRow.insertCell();
+      cellCode.textContent = stockCode;
+
+      // Ô giá tham chiếu
+      const cellRef = newRow.insertCell();
+      cellRef.textContent = refPrice.toFixed(2);
+
+      // Ô giá sàn
+      const cellFloor = newRow.insertCell();
+      cellFloor.textContent = floor;
+
+      // Ô giá trần
+      const cellCeiling = newRow.insertCell();
+      cellCeiling.textContent = ceiling;
+
+      // Ô hành động
+      const cellActions = newRow.insertCell();
+      const btnIncrease = document.createElement('button');
+      btnIncrease.textContent = "Tăng";
+      btnIncrease.className = "action-btn btn-increase";
+      const btnDecrease = document.createElement('button');
+      btnDecrease.textContent = "Giảm";
+      btnDecrease.className = "action-btn btn-decrease";
+      const btnDelete = document.createElement('button');
+      btnDelete.textContent = "Xóa";
+      btnDelete.className = "action-btn btn-delete";
+
+      cellActions.appendChild(btnIncrease);
+      cellActions.appendChild(btnDecrease);
+      cellActions.appendChild(btnDelete);
+
+      // Ô thời gian cập nhật
+      const cellTime = newRow.insertCell();
+      cellTime.textContent = getCurrentDateTime();
+
+      // Sự kiện Tăng: tăng giá tham chiếu thêm 0.4 và cập nhật giá sàn, trần
+      btnIncrease.addEventListener('click', function() {
+        let currentRef = parseFloat(cellRef.textContent);
+        currentRef += 0.4;
+        cellRef.textContent = currentRef.toFixed(2);
+        const vol = parseFloat(newRow.dataset.volatility);
+        const { floor, ceiling } = calculatePriceLimits(currentRef, vol);
+        cellFloor.textContent = floor;
+        cellCeiling.textContent = ceiling;
+        cellTime.textContent = getCurrentDateTime();
+      });
+
+      // Sự kiện Giảm: giảm giá tham chiếu 0.4 và cập nhật lại giá
+      btnDecrease.addEventListener('click', function() {
+        let currentRef = parseFloat(cellRef.textContent);
+        if (currentRef > 0.4) {
+          currentRef -= 0.4;
+          cellRef.textContent = currentRef.toFixed(2);
+          const vol = parseFloat(newRow.dataset.volatility);
+          const { floor, ceiling } = calculatePriceLimits(currentRef, vol);
+          cellFloor.textContent = floor;
+          cellCeiling.textContent = ceiling;
+          cellTime.textContent = getCurrentDateTime();
+        } else {
+          alert("Giá tham chiếu không thể nhỏ hơn 0!");
+        }
+      });
+
+      // Sự kiện Xóa: loại bỏ dòng khỏi bảng
+      btnDelete.addEventListener('click', function() {
+        newRow.remove();
+      });
+    }
+
+    // Xử lý sự kiện khi nhấn nút Lưu
+    document.getElementById('saveBtn').addEventListener('click', function() {
+      const stockCode = document.getElementById('stockCode').value.trim();
+      const refPrice = parseFloat(document.getElementById('refPrice').value);
+      const volatility = parseFloat(document.getElementById('volatility').value);
+
+      if (stockCode === "" || isNaN(refPrice) || isNaN(volatility) || volatility <= 0) {
+        alert("Vui lòng nhập đầy đủ thông tin hợp lệ!");
+        return;
+      }
+      addOrUpdateStockRow(stockCode, refPrice, volatility);
+      document.getElementById('stockCode').value = "";
+      document.getElementById('refPrice').value = "";
+      document.getElementById('volatility').value = "";
+    });
+
+    // Tìm kiếm mã cổ phiếu theo từ khóa
+    document.getElementById('searchInput').addEventListener('input', function() {
+      const keyword = this.value.trim().toLowerCase();
+      const rows = document.getElementById('stocksTable').tBodies[0].rows;
+      for (let i = 0; i < rows.length; i++) {
+        const stockCode = rows[i].cells[0].textContent.toLowerCase();
+        rows[i].style.display = stockCode.includes(keyword) ? "" : "none";
+      }
+    });
+
+    // Sắp xếp theo mã cổ phiếu (A-Z)
+    document.getElementById('sortAlphaBtn').addEventListener('click', function() {
+      const tbody = document.getElementById('stocksTable').tBodies[0];
+      const rowsArray = Array.from(tbody.rows);
+      rowsArray.sort((a, b) => {
+        const codeA = a.cells[0].textContent.toLowerCase();
+        const codeB = b.cells[0].textContent.toLowerCase();
+        if(codeA < codeB) return -1;
+        if(codeA > codeB) return 1;
+        return 0;
+      });
+      rowsArray.forEach(row => tbody.appendChild(row));
+    });
+
+    // Sắp xếp theo giá tham chiếu (tăng dần)
+    document.getElementById('sortRefPriceBtn').addEventListener('click', function() {
+      const tbody = document.getElementById('stocksTable').tBodies[0];
+      const rowsArray = Array.from(tbody.rows);
+      rowsArray.sort((a, b) => parseFloat(a.cells[1].textContent) - parseFloat(b.cells[1].textContent));
+      rowsArray.forEach(row => tbody.appendChild(row));
+    });
+  </script>
 </body>
 </html>
-
-
