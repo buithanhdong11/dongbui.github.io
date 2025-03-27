@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Tính Toán Giá Cổ Phiếu</title>
+  <title>Tính Toán & Quản Lý Giá Cổ Phiếu</title>
   <style>
     body {
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -134,7 +134,42 @@
   </table>
 
   <script>
-    // Hàm lấy chuỗi ngày giờ đầy đủ (ngày/tháng/năm giờ:phút:giây)
+    // Lưu trữ dữ liệu vào localStorage với thời hạn 3 ngày
+    function updateLocalStorage() {
+      const tableBody = document.getElementById('stocksTable').tBodies[0];
+      const rows = tableBody.rows;
+      let data = [];
+      for (let i = 0; i < rows.length; i++) {
+        const stockCode = rows[i].cells[0].textContent;
+        const refPrice = parseFloat(rows[i].cells[1].textContent);
+        const volatility = parseFloat(rows[i].dataset.volatility);
+        const updatedTime = rows[i].cells[5].textContent;
+        data.push({ stockCode, refPrice, volatility, updatedTime });
+      }
+      // 3 ngày tính theo mili giây
+      const expiry = new Date().getTime() + 3 * 24 * 60 * 60 * 1000;
+      const storeData = { expiry, data };
+      localStorage.setItem("stockData", JSON.stringify(storeData));
+    }
+
+    // Tải dữ liệu từ localStorage nếu chưa hết hạn
+    function loadFromLocalStorage() {
+      const stored = localStorage.getItem("stockData");
+      if (stored) {
+        const obj = JSON.parse(stored);
+        if (new Date().getTime() < obj.expiry) {
+          const stocks = obj.data;
+          for (let stock of stocks) {
+            // Sử dụng hàm addOrUpdateStockRow để tạo dòng
+            addOrUpdateStockRow(stock.stockCode, stock.refPrice, stock.volatility);
+          }
+        } else {
+          localStorage.removeItem("stockData");
+        }
+      }
+    }
+
+    // Hàm lấy chuỗi ngày giờ đầy đủ (dd/mm/yyyy hh:mm:ss)
     function getCurrentDateTime() {
       const now = new Date();
       return now.toLocaleString("vi-VN", {
@@ -166,16 +201,15 @@
         }
       }
 
-      // Tính giá sàn và trần dựa vào giá tham chiếu và biên độ
       const { floor, ceiling } = calculatePriceLimits(refPrice, volatility);
 
       if (existingRow) {
-        // Cập nhật dòng hiện có
         existingRow.dataset.volatility = volatility;
         existingRow.cells[1].textContent = refPrice.toFixed(2);
         existingRow.cells[2].textContent = floor;
         existingRow.cells[3].textContent = ceiling;
         existingRow.cells[5].textContent = getCurrentDateTime();
+        updateLocalStorage();
         return;
       }
 
@@ -219,7 +253,7 @@
       const cellTime = newRow.insertCell();
       cellTime.textContent = getCurrentDateTime();
 
-      // Sự kiện Tăng: tăng giá tham chiếu thêm 0.4 và cập nhật giá sàn, trần
+      // Sự kiện Tăng: tăng giá tham chiếu thêm 0.4 và cập nhật lại giá
       btnIncrease.addEventListener('click', function() {
         let currentRef = parseFloat(cellRef.textContent);
         currentRef += 0.4;
@@ -229,6 +263,7 @@
         cellFloor.textContent = floor;
         cellCeiling.textContent = ceiling;
         cellTime.textContent = getCurrentDateTime();
+        updateLocalStorage();
       });
 
       // Sự kiện Giảm: giảm giá tham chiếu 0.4 và cập nhật lại giá
@@ -242,6 +277,7 @@
           cellFloor.textContent = floor;
           cellCeiling.textContent = ceiling;
           cellTime.textContent = getCurrentDateTime();
+          updateLocalStorage();
         } else {
           alert("Giá tham chiếu không thể nhỏ hơn 0!");
         }
@@ -250,7 +286,10 @@
       // Sự kiện Xóa: loại bỏ dòng khỏi bảng
       btnDelete.addEventListener('click', function() {
         newRow.remove();
+        updateLocalStorage();
       });
+
+      updateLocalStorage();
     }
 
     // Xử lý sự kiện khi nhấn nút Lưu
@@ -286,11 +325,10 @@
       rowsArray.sort((a, b) => {
         const codeA = a.cells[0].textContent.toLowerCase();
         const codeB = b.cells[0].textContent.toLowerCase();
-        if(codeA < codeB) return -1;
-        if(codeA > codeB) return 1;
-        return 0;
+        return codeA < codeB ? -1 : (codeA > codeB ? 1 : 0);
       });
       rowsArray.forEach(row => tbody.appendChild(row));
+      updateLocalStorage();
     });
 
     // Sắp xếp theo giá tham chiếu (tăng dần)
@@ -299,7 +337,13 @@
       const rowsArray = Array.from(tbody.rows);
       rowsArray.sort((a, b) => parseFloat(a.cells[1].textContent) - parseFloat(b.cells[1].textContent));
       rowsArray.forEach(row => tbody.appendChild(row));
+      updateLocalStorage();
     });
+
+    // Khi trang được tải, kiểm tra và khôi phục dữ liệu từ localStorage nếu có
+    window.onload = function() {
+      loadFromLocalStorage();
+    }
   </script>
 </body>
 </html>
