@@ -50,13 +50,18 @@
       margin-bottom: 5px;
       font-weight: bold;
     }
-    .form-container input, .control-container input {
-      width: 100%;
+    /* Chỉnh sửa khung nhập liệu: căn đều hai bên, cố định độ dài và không tràn container */
+    .form-container input, 
+    .control-container input {
+      width: 80%;                /* Đặt độ rộng cố định cho input */
+      max-width: 500px;          /* Giới hạn tối đa */
       padding: 8px;
-      margin-bottom: 10px;
+      margin: 10px auto;         /* Căn giữa theo chiều ngang (cách đều 2 bên) */
       border: 1px solid #ccc;
       border-radius: 4px;
-      transition: border-color 0.3s;
+      box-sizing: border-box;    /* Tính cả padding, border vào kích thước */
+      display: block;
+      text-align: left;
     }
     .form-container button, .control-container button {
       padding: 10px 15px;
@@ -237,11 +242,7 @@
     const darkModeToggle = document.getElementById('darkModeToggle');
     darkModeToggle.addEventListener('click', function() {
       document.body.classList.toggle('dark-mode');
-      if (document.body.classList.contains('dark-mode')) {
-        darkModeToggle.textContent = "Chế độ sáng";
-      } else {
-        darkModeToggle.textContent = "Chế độ tối";
-      }
+      darkModeToggle.textContent = document.body.classList.contains('dark-mode') ? "Chế độ sáng" : "Chế độ tối";
     });
 
     function updateLocalStorage() {
