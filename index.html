@@ -2,7 +2,6 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <!-- Thay đổi meta viewport để không cho zoom khi nhập liệu trên mobile -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Tính Toán & Quản Lý Giá Cổ Phiếu</title>
   <style>
@@ -69,6 +68,12 @@
       overflow-x: auto;
       display: block;
     }
+    table col:nth-child(1) { width: 3cm; }
+    table col:nth-child(2) { width: 3.8cm; }
+    table col:nth-child(3) { width: 3.8cm; }
+    table col:nth-child(4) { width: 4cm; }
+    table col:nth-child(5) { width: 3cm; }
+    table col:nth-child(6) { width: 4cm; }
     table th, table td {
       padding: 10px;
       text-align: center;
@@ -97,8 +102,6 @@
       background-color: #7f8c8d;
       color: #fff;
     }
-    
-    /* Responsive adjustments cho màn hình nhỏ */
     @media (max-width: 600px) {
       body {
         margin: 10px;
@@ -121,25 +124,25 @@
   
   <div class="form-container">
     <label for="stockCode">Mã cổ phiếu:</label>
-    <input type="text" id="stockCode" placeholder="VD: FPT" />
-
+    <input type="text" id="stockCode" placeholder="VD: FPT">
     <label for="refPrice">Giá tham chiếu:</label>
-    <input type="number" id="refPrice" placeholder="Nhập giá tham chiếu" step="0.01" />
-
+    <input type="number" id="refPrice" placeholder="Nhập giá tham chiếu" step="0.01">
     <label for="volatility">Biên độ dao động (%):</label>
-    <input type="number" id="volatility" placeholder="VD: 7" step="0.1" />
-
+    <input type="number" id="volatility" placeholder="VD: 7" step="0.1">
     <button id="saveBtn">Lưu</button>
   </div>
 
   <div class="control-container">
     <label for="searchInput">Tìm kiếm mã cổ phiếu:</label>
-    <input type="text" id="searchInput" placeholder="Nhập từ khóa tìm kiếm..." />
+    <input type="text" id="searchInput" placeholder="Nhập từ khóa tìm kiếm...">
     <button id="sortAlphaBtn">Sắp xếp theo mã (A-Z)</button>
     <button id="sortRefPriceBtn">Sắp xếp theo giá tham chiếu (Tăng dần)</button>
   </div>
   
   <table id="stocksTable">
+    <colgroup>
+      <col><col><col><col><col><col>
+    </colgroup>
     <thead>
       <tr>
         <th>Mã cổ phiếu</th>
@@ -150,13 +153,10 @@
         <th>Thời gian cập nhật</th>
       </tr>
     </thead>
-    <tbody>
-      <!-- Dòng dữ liệu sẽ được thêm vào đây -->
-    </tbody>
+    <tbody></tbody>
   </table>
 
   <script>
-    // Lưu trữ dữ liệu vào localStorage với thời hạn 3 ngày
     function updateLocalStorage() {
       const tableBody = document.getElementById('stocksTable').tBodies[0];
       const rows = tableBody.rows;
@@ -168,13 +168,11 @@
         const updatedTime = rows[i].cells[5].textContent;
         data.push({ stockCode, refPrice, volatility, updatedTime });
       }
-      // 3 ngày tính theo mili giây
       const expiry = new Date().getTime() + 3 * 24 * 60 * 60 * 1000;
       const storeData = { expiry, data };
       localStorage.setItem("stockData", JSON.stringify(storeData));
     }
 
-    // Tải dữ liệu từ localStorage nếu chưa hết hạn
     function loadFromLocalStorage() {
       const stored = localStorage.getItem("stockData");
       if (stored) {
@@ -190,7 +188,6 @@
       }
     }
 
-    // Hàm lấy chuỗi ngày giờ đầy đủ (dd/mm/yyyy hh:mm:ss)
     function getCurrentDateTime() {
       const now = new Date();
       return now.toLocaleString("vi-VN", {
@@ -199,7 +196,6 @@
       });
     }
 
-    // Công thức tính giá sàn và trần theo biên độ (%)
     function calculatePriceLimits(refPrice, volatility) {
       const factor = volatility / 100;
       const floor = refPrice * (1 - factor);
@@ -207,13 +203,11 @@
       return { floor: floor.toFixed(2), ceiling: ceiling.toFixed(2) };
     }
 
-    // Thêm hoặc cập nhật dòng mã cổ phiếu
     function addOrUpdateStockRow(stockCode, refPrice, volatility) {
       const tableBody = document.getElementById('stocksTable').tBodies[0];
       const rows = tableBody.rows;
       let existingRow = null;
 
-      // Kiểm tra nếu mã cổ phiếu đã tồn tại (không phân biệt chữ hoa/thường)
       for (let i = 0; i < rows.length; i++) {
         const cellStockCode = rows[i].cells[0].textContent.trim();
         if (cellStockCode.toLowerCase() === stockCode.toLowerCase()) {
@@ -234,27 +228,21 @@
         return;
       }
 
-      // Nếu không tồn tại, tạo dòng mới
       const newRow = tableBody.insertRow();
       newRow.dataset.volatility = volatility;
 
-      // Ô mã cổ phiếu
       const cellCode = newRow.insertCell();
       cellCode.textContent = stockCode;
 
-      // Ô giá tham chiếu
       const cellRef = newRow.insertCell();
       cellRef.textContent = refPrice.toFixed(2);
 
-      // Ô giá sàn
       const cellFloor = newRow.insertCell();
       cellFloor.textContent = floor;
 
-      // Ô giá trần
       const cellCeiling = newRow.insertCell();
       cellCeiling.textContent = ceiling;
 
-      // Ô hành động
       const cellActions = newRow.insertCell();
       const btnIncrease = document.createElement('button');
       btnIncrease.textContent = "Tăng";
@@ -270,11 +258,9 @@
       cellActions.appendChild(btnDecrease);
       cellActions.appendChild(btnDelete);
 
-      // Ô thời gian cập nhật
       const cellTime = newRow.insertCell();
       cellTime.textContent = getCurrentDateTime();
 
-      // Sự kiện Tăng: tăng giá tham chiếu thêm 0.4 và cập nhật lại giá
       btnIncrease.addEventListener('click', function() {
         let currentRef = parseFloat(cellRef.textContent);
         currentRef += 0.4;
@@ -287,7 +273,6 @@
         updateLocalStorage();
       });
 
-      // Sự kiện Giảm: giảm giá tham chiếu 0.4 và cập nhật lại giá
       btnDecrease.addEventListener('click', function() {
         let currentRef = parseFloat(cellRef.textContent);
         if (currentRef > 0.4) {
@@ -304,7 +289,6 @@
         }
       });
 
-      // Sự kiện Xóa: loại bỏ dòng khỏi bảng
       btnDelete.addEventListener('click', function() {
         newRow.remove();
         updateLocalStorage();
@@ -313,7 +297,6 @@
       updateLocalStorage();
     }
 
-    // Xử lý sự kiện khi nhấn nút Lưu
     document.getElementById('saveBtn').addEventListener('click', function() {
       const stockCode = document.getElementById('stockCode').value.trim();
       const refPrice = parseFloat(document.getElementById('refPrice').value);
@@ -329,7 +312,6 @@
       document.getElementById('volatility').value = "";
     });
 
-    // Tìm kiếm mã cổ phiếu theo từ khóa
     document.getElementById('searchInput').addEventListener('input', function() {
       const keyword = this.value.trim().toLowerCase();
       const rows = document.getElementById('stocksTable').tBodies[0].rows;
@@ -339,20 +321,18 @@
       }
     });
 
-    // Sắp xếp theo mã cổ phiếu (A-Z)
     document.getElementById('sortAlphaBtn').addEventListener('click', function() {
       const tbody = document.getElementById('stocksTable').tBodies[0];
       const rowsArray = Array.from(tbody.rows);
       rowsArray.sort((a, b) => {
         const codeA = a.cells[0].textContent.toLowerCase();
         const codeB = b.cells[0].textContent.toLowerCase();
-        return codeA < codeB ? -1 : (codeA > codeB ? 1 : 0);
+        return codeA.localeCompare(codeB);
       });
       rowsArray.forEach(row => tbody.appendChild(row));
       updateLocalStorage();
     });
 
-    // Sắp xếp theo giá tham chiếu (tăng dần)
     document.getElementById('sortRefPriceBtn').addEventListener('click', function() {
       const tbody = document.getElementById('stocksTable').tBodies[0];
       const rowsArray = Array.from(tbody.rows);
@@ -361,7 +341,6 @@
       updateLocalStorage();
     });
 
-    // Khi trang được tải, kiểm tra và khôi phục dữ liệu từ localStorage nếu có
     window.onload = function() {
       loadFromLocalStorage();
     }
