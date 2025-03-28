@@ -58,56 +58,25 @@
     .control-container button:hover {
       background-color: #1f6391;
     }
-    
-    /* Quan trọng: Sử dụng table-layout: fixed để có thể quy định độ rộng cột.
-       Bỏ display: block để bảng không bị giới hạn và cột cuối cùng có thể giãn. */
     table {
       width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
       border-collapse: collapse;
       background: #fff;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      table-layout: fixed; /* Chia cột theo độ rộng cố định hoặc tỉ lệ đã đặt */
+      overflow-x: auto;
+      display: block;
     }
-    
-    /* Định nghĩa độ rộng cho các cột từ 1 đến 5,
-       cột 6 (cuối cùng) để width: auto để nó chiếm phần còn lại. */
-    thead th:nth-child(1),
-    tbody td:nth-child(1) {
-      width: 10%; /* Cột Mã cổ phiếu */
-    }
-    thead th:nth-child(2),
-    tbody td:nth-child(2) {
-      width: 15%; /* Cột Giá tham chiếu */
-    }
-    thead th:nth-child(3),
-    tbody td:nth-child(3) {
-      width: 15%; /* Cột Giá sàn */
-    }
-    thead th:nth-child(4),
-    tbody td:nth-child(4) {
-      width: 15%; /* Cột Giá trần */
-    }
-    thead th:nth-child(5),
-    tbody td:nth-child(5) {
-      width: 15%; /* Cột Hành động */
-    }
-    thead th:nth-child(6),
-    tbody td:nth-child(6) {
-      width: auto; /* Cột Thời gian cập nhật - chiếm hết không gian còn lại */
-    }
-
     table th, table td {
       padding: 10px;
       text-align: center;
       border: 1px solid #ddd;
-      /* Cho phép xuống dòng nếu nội dung quá dài */
-      word-wrap: break-word;
     }
     table th {
       background-color: #34495e;
       color: #fff;
     }
-
     .action-btn {
       padding: 5px 8px;
       margin: 2px;
@@ -136,15 +105,13 @@
       h1 {
         font-size: 1.5em;
       }
-      .form-container, .control-container {
+      .form-container, .control-container, table {
         width: 100%;
         margin: 0 auto 15px;
       }
       table th, table td {
         padding: 8px;
       }
-      /* Với màn hình quá nhỏ, bạn có thể điều chỉnh lại tỉ lệ các cột
-         hoặc cho phép tràn ngang (overflow-x) nếu cần. */
     }
   </style>
 </head>
@@ -291,11 +258,9 @@
       const btnIncrease = document.createElement('button');
       btnIncrease.textContent = "Tăng";
       btnIncrease.className = "action-btn btn-increase";
-
       const btnDecrease = document.createElement('button');
       btnDecrease.textContent = "Giảm";
       btnDecrease.className = "action-btn btn-decrease";
-
       const btnDelete = document.createElement('button');
       btnDelete.textContent = "Xóa";
       btnDelete.className = "action-btn btn-delete";
